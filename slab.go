@@ -44,3 +44,12 @@ func (s *Slab[T]) Reset() {
 	s.used = 0
 	s.fallback = 0
 }
+
+// Stats returns the current usage statistics of the slab, including the number of objects allocated from the internal buffer (Pool)
+// and the number of objects allocated from the heap (Heap). Stats will be reset to zero after each call to Reset.
+func (s *Slab[T]) Stats() Stats {
+	return Stats{
+		Pool: s.used,
+		Heap: s.fallback,
+	}
+}
